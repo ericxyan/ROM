@@ -51,7 +51,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'uiGmapgoogle-maps'])
   })
 
   .state('app.galleries-detail',{
-    url: '/gallerires/101',
+    url: '/galleries/:galleryId',
     views: {
       'menuContent': {
         templateUrl: 'templates/galleries-detail.html'
@@ -59,31 +59,32 @@ angular.module('starter', ['ionic', 'starter.controllers', 'uiGmapgoogle-maps'])
     }
   })
 
-  .state('app.maps', {
-      url: '/maps',
+
+  .state('app.navigation', {
+      url: '/navigation',
       views: {
         'menuContent': {
-          templateUrl: 'templates/maps.html',
+          templateUrl: 'templates/navigation.html',
 
         }
       }
     })
-    .state('app.playlists', {
-      url: '/playlists',
+    .state('app.maps', {
+      url: '/maps',
       views: {
         'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
+          templateUrl: 'templates/maps.html',
+          controller: 'MaplistCtrl'
         }
       }
     })
 
   .state('app.single', {
-    url: '/playlists/:playlistId',
+    url: '/maps/:mapId',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+        templateUrl: 'templates/map.html',
+        controller: 'MapCtrl'
       }
     }
   });

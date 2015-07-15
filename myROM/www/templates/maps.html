@@ -1,8 +1,9 @@
 <ion-view view-title="Maps">
-	<ion-content class="padding">
-		<ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
-	</ion-content>
-	<ion-footer-bar class="bar-dark">
-		<a ng-click="centerOnMe()" class="button button-icon icon ion-navigate">Find Me</a>
-	</ion-footer-bar>
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="map in maplist" href="#/app/maps/{{map.id}}">
+        {{map.title}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
 </ion-view>

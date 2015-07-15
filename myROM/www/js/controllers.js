@@ -8,7 +8,14 @@ angular.module('starter.controllers', [])
   // listen for the $ionicView.enter event:
   //$scope.$on('$ionicView.enter', function(e) {
   //});
-$scope.map = { center: { latitude: 43.6677097, longitude: -79.3947771 }, zoom: 18 };
+  // Google maps
+  $scope.map = { center: { latitude: 43.6677097, longitude: -79.3947771 }, zoom: 18 };
+  $scope.maplist = [
+    { title: 'Level 1', id: 0, url: 'img/rom-level1.png' },
+    { title: 'Level 2', id: 1, url: 'img/rom-level2.png' },
+    { title: 'Level 3', id: 2 },
+    { title: 'Level 4', id: 3 },
+  ];
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -41,16 +48,16 @@ $scope.map = { center: { latitude: 43.6677097, longitude: -79.3947771 }, zoom: 1
   };
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
+.controller('MaplistCtrl', function($scope) {
+  $scope.maplist = [
+    { title: 'Level 1', id: 0 },
+    { title: 'Level 2', id: 1 },
+    { title: 'Level 3', id: 2 },
+    { title: 'Level 4', id: 3 },
   ];
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('MapCtrl', function($scope, $stateParams) {
+  $scope.mapId = $stateParams.mapId;
 });
+
