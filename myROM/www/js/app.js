@@ -25,7 +25,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'uiGmapgoogle-maps'])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state('app', {
+  .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
@@ -50,7 +50,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'uiGmapgoogle-maps'])
     }
   })
 
-  .state('app.galleries-detail',{
+  .state('galleries.galleries-detail',{
     url: '/galleries/:galleryId',
     views: {
       'menuContent': {

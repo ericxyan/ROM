@@ -8,6 +8,14 @@
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
       </ion-nav-buttons>
+
+      <ion-nav-buttons side="right">
+        <a class="button button-icon button-clear ion-home"
+                href="#/app/home"
+        >
+        </a>
+      </ion-nav-buttons>
+
     </ion-nav-bar>
     <ion-nav-view name="menuContent"></ion-nav-view>
   </ion-side-menu-content>
@@ -33,16 +41,15 @@
         <ion-item menu-close href="#/app/navigation">
           Navigation
         </ion-item>
-        <ion-item menu-close href="#/app/locate">
-          Where am I?
-        </ion-item>
         <ion-item menu-close href="#/app/tickets">
           Buy ticket
         </ion-item>     
         <ion-item menu-close href="#/app/scan">
           Scan
         </ion-item>  
-
+        <ion-item menu-close href="#/app/scan">
+          Feedbacks
+        </ion-item>  
       </ion-list>
     </ion-content>
   </ion-side-menu>
