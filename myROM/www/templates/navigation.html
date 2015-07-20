@@ -1,8 +1,52 @@
 <ion-view view-title="Maps">
 	<ion-content class="padding">
-		<ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
+		<!-- <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map> -->
+<!-- <map center="43.6677097,-79.3947771" zoom="18">
+	<marker ng-repeat="pos in positions" id="{{pos.posid}}" position="{{pos.lat}}, {{pos.lng}}"></marker>
+
+    <shape name="polyline" id="foo" path="[
+		[43.667485, -79.394915],
+		[43.667509, -79.394825],
+		[43.667641, -79.394880],
+		[43.667779, -79.394262]
+      ]" geodesic="true" stroke-color="#FF0000" stroke-opacity="1.0" stroke-weight="2">
+    </shape>
+</map> -->
+<div>
+	<img src="img/mapcatch.png" alt="map">
+</div>
+<ul class="list">
+  <li class="item item-toggle">
+     Track my path
+     <label class="toggle toggle-positive">
+       <input type="checkbox">
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </li>
+  <li class="item item-toggle">
+     Show my favorites
+     <label class="toggle toggle-positive">
+       <input type="checkbox" >
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </li>
+  <li class="item item-toggle">
+     Virtual guide
+     <label class="toggle toggle-positive">
+       <input type="checkbox">
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </li>
+</ul>
+
 	</ion-content>
-	<ion-footer-bar class="bar-dark">
+	<ion-footer-bar class="bar-positive">
 		<a ng-click="centerOnMe()" class="button button-icon icon ion-navigate">Find Me</a>
 	</ion-footer-bar>
 </ion-view>

@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ngMap'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -9,7 +9,7 @@ angular.module('starter.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
   // Google maps
-  $scope.map = { center: { latitude: 43.6677097, longitude: -79.3947771 }, zoom: 18 };
+  //$scope.map = { center: { latitude: 43.6677097, longitude: -79.3947771 }, zoom: 19 };
   $scope.maplist = [
     { title: 'Level 1', id: 0, url: 'img/rom-level1.png' },
     { title: 'Level 2', id: 1, url: 'img/rom-level2.png' },
@@ -59,5 +59,29 @@ angular.module('starter.controllers', [])
 
 .controller('MapCtrl', function($scope, $stateParams) {
   $scope.mapId = $stateParams.mapId;
-});
+})
 
+.controller('navigation', function($scope){
+  $scope.positions = [
+    {lat:43.667485,lng:-79.394915,posid: 'chineseArchi'},{lat:43.667779, lng:-79.394262, posid:'rtounda'}
+  ];
+
+
+  $scope.addMarker = function(event) {
+    var ll = event.latLng;
+    $scope.positions.push({lat:ll.lat(), lng: ll.lng()});
+  }
+  $scope.deleteMarkers = function() {
+    $scope.positions = [];
+  };
+  $scope.showMarkers = function() {
+    for (var key in $scope.map.markers) {
+      $scope.map.markers[key].setMap($scope.map);
+    };
+  };
+  $scope.hideMarkers = function() {
+    for (var key in $scope.map.markers) {
+      $scope.map.markers[key].setMap(null);
+    };
+  };
+});
