@@ -41,6 +41,43 @@ angular.module('starter', ['ionic', 'starter.controllers', 'uiGmapgoogle-maps'])
     }
   })
 
+  .state('app.news',{
+    url: '/news',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/news.html'
+      }
+    }
+  })
+
+  .state('app.news-detail', {
+    url: '/news/1',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/news-detail.html',
+      }
+    }
+  })
+
+  .state('app.maps', {
+    url: '/maps',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/maps.html',
+        controller: 'MaplistCtrl'
+      }
+    }
+  })
+  .state('app.single', {
+    url: '/maps/:mapId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/map.html',
+        controller: 'MapCtrl'
+      }
+    }
+  })
+
   .state('app.galleries', {
     url: '/galleries',
     views: {
@@ -50,15 +87,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'uiGmapgoogle-maps'])
     }
   })
 
-  .state('galleries.galleries-detail',{
-    url: '/galleries/:galleryId',
+  .state('app.galleries-detail',{
+    url: '/galleries/1',
     views: {
       'menuContent': {
         templateUrl: 'templates/galleries-detail.html'
       }
     }
   })
-
 
   .state('app.navigation', {
       url: '/navigation',
@@ -69,25 +105,36 @@ angular.module('starter', ['ionic', 'starter.controllers', 'uiGmapgoogle-maps'])
         }
       }
     })
-    .state('app.maps', {
-      url: '/maps',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/maps.html',
-          controller: 'MaplistCtrl'
-        }
-      }
-    })
 
-  .state('app.single', {
-    url: '/maps/:mapId',
+  .state('app.tickets', {
+    url: '/tickets',
     views: {
       'menuContent': {
-        templateUrl: 'templates/map.html',
-        controller: 'MapCtrl'
+        templateUrl: 'templates/tickets.html',
+      }
+    }
+  })
+
+  .state('app.scan', {
+    url: '/scan',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/scan.html',
+      }
+    }
+  })
+
+
+
+  .state('app.feedback', {
+    url: '/feedback',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/feedback.html',
       }
     }
   });
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/home');
 });

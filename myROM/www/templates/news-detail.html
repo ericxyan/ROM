@@ -1,0 +1,46 @@
+<ion-view view-title="Sigmund Samuel Gallery of Canada">
+<ion-content>
+<div class="list card">
+	<div class="item item-button-right item-text-wrap">
+		<h2><strong>POMPEII <br/>in the shadow of the volcano</strong></h2>
+		<button class="ng-class:{'button button-clear button-assertive': favor, 'button button-clear': !favor}" ng-init="favor=false" ng-click="favor=!favor"><i class="ion-star"></i></button>
+	</div>
+	
+	<div class="item item-image">
+		<img class="full-image" src="img/pompeii_carousel.png" alt="general-wolf-big-one.jpg">
+	</div>
+	<div class="item tabs tabs-secondary tabs-icon-left">
+		<a class="tab-item" href="#" ng-click="like = like + 1">
+			<i class="icon ion-thumbsup"></i>
+			Like
+		</a>
+		<a class="tab-item" href="#">
+			<i class="icon ion-chatbox"></i>
+			Comment
+		</a>
+		<a class="tab-item" href="#">
+			<i class="icon ion-share"></i>
+			Share
+		</a>
+	</div>
+	<div class="item">
+		<p>
+			<a href="#" class="subdued" ng-init="like=0">{{like}} Like</a>
+			<a href="#" class="subdued">1 Comments</a>
+		</p>
+	</div>
+		<div class="item">
+			<div class="video-container">
+				<iframe src="https://www.youtube.com/embed/Uhb4IPxLH10" frameborder="0" allowfullscreen></iframe>
+			</div>
+		</div>
+		<div class="item item-text-wrap">
+			<p>
+				Almost two thousand years ago, a volcano in southern Italy - Mount Vesuvius - erupted with tremendous force and little warning. Within 24 hours, the nearby Roman city of Pompeii was buried under a rain of hot ash and falling debris, lying undiscovered for over 1,600 years.
+			</p>
+		</div>
+
+	</div>
+</div>
+</ion-content>
+</ion-view>
