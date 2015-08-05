@@ -5,9 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js 
 // 'uiGmapgoogle-maps'
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, GeoAlert) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -20,6 +20,27 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+//Begin the service
+    //hard coded 'target'
+    var lat = 43.6677097;
+    var long = -79.3947771;
+    function onConfirm(idx) {
+      console.log('button '+idx+' pressed');
+    }
+    
+    GeoAlert.begin(lat,long, function() {
+      console.log('TARGET');
+      GeoAlert.end();
+      navigator.notification.confirm(
+        'You are near a target!',
+        onConfirm,
+        'Target!',
+        ['Cancel','View']
+      );
+      
+    });
+
   });
 })
 

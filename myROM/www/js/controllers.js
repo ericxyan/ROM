@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ngMap'])
+angular.module('starter.controllers', ['ngMap', 'ngCordova'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -19,7 +19,7 @@ angular.module('starter.controllers', ['ngMap'])
   // Form data for the login modal
   $scope.loginData = {};
 
-  // Create the login modal that we will use later
+  // Create the login modal that we will use later`
   $ionicModal.fromTemplateUrl('templates/login.html', {
     scope: $scope
   }).then(function(modal) {
@@ -61,11 +61,10 @@ angular.module('starter.controllers', ['ngMap'])
   $scope.mapId = $stateParams.mapId;
 })
 
-.controller('navigation', function($scope){
+.controller('navigation', function($scope, $ionicLoading, $cordovaGeolocation, pathRecords){
   $scope.positions = [
     {lat:43.667485,lng:-79.394915,posid: 'chineseArchi'},{lat:43.667779, lng:-79.394262, posid:'rtounda'}
   ];
-
 
   $scope.addMarker = function(event) {
     var ll = event.latLng;
@@ -84,4 +83,169 @@ angular.module('starter.controllers', ['ngMap'])
       $scope.map.markers[key].setMap(null);
     };
   };
+
+  // Find me
+/*  var TILE_SIZE = 256;
+
+  function bound(value, opt_min, opt_max) {
+    if (opt_min != null) value = Math.max(value, opt_min);
+    if (opt_max != null) value = Math.min(value, opt_max);
+    return value;
+  }
+
+  function degreesToRadians(deg) {
+    return deg * (Math.PI / 180);
+  }
+
+  function radiansToDegrees(rad) {
+    return rad / (Math.PI / 180);
+  }
+
+  function MercatorProjection() {
+    this.pixelOrigin_ = new google.maps.Point(TILE_SIZE / 2, TILE_SIZE / 2);
+    this.pixelsPerLonDegree_ = TILE_SIZE / 360;
+    this.pixelsPerLonRadian_ = TILE_SIZE / (2 * Math.PI);
+  }
+
+  MercatorProjection.prototype.fromLatLngToPoint = function(latLng,
+      opt_point) {
+    var me = this;
+    var point = opt_point || new google.maps.Point(0, 0);
+    var origin = me.pixelOrigin_;
+
+    point.x = origin.x + latLng.lng() * me.pixelsPerLonDegree_;
+
+    // Truncating to 0.9999 effectively limits latitude to 89.189. This is
+    // about a third of a tile past the edge of the world tile.
+    var siny = bound(Math.sin(degreesToRadians(latLng.lat())), -0.9999,
+        0.9999);
+    point.y = origin.y + 0.5 * Math.log((1 + siny) / (1 - siny)) *
+        -me.pixelsPerLonRadian_;
+    return point;
+  };
+
+  MercatorProjection.prototype.fromPointToLatLng = function(point) {
+    var me = this;
+    var origin = me.pixelOrigin_;
+    var lng = (point.x - origin.x) / me.pixelsPerLonDegree_;
+    var latRadians = (point.y - origin.y) / -me.pixelsPerLonRadian_;
+    var lat = radiansToDegrees(2 * Math.atan(Math.exp(latRadians)) -
+        Math.PI / 2);
+    return new google.maps.LatLng(lat, lng);
+  };*/
+
+/*  $scope.$on('mapInitialized', function(event, map) {
+    var numTiles = 1 << map.getZoom();
+    var projection = new MercatorProjection();
+    $scope.radius = 10 / map.getZoom();
+    $scope.currentLocation = map.getCenter();
+    $scope.worldCoordinate = projection.fromLatLngToPoint($scope.currentLocation);
+    $scope.pixelCoordinate = new google.maps.Point(
+        $scope.worldCoordinate.x * numTiles,
+        $scope.worldCoordinate.y * numTiles);
+    $scope.tileCoordinate = new google.maps.Point(
+        Math.floor($scope.pixelCoordinate.x / TILE_SIZE),
+        Math.floor($scope.pixelCoordinate.y / TILE_SIZE));
+  });*/
+
+  // Center on me
+
+  $scope.$on('mapInitialized', function(event, map) {
+    $scope.map = map;
+  });
+
+  $scope.centerOnMe= function(){
+    $scope.positions = [];
+
+    $ionicLoading.show({
+      template: 'Loading...'
+    });
+
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      $scope.positions.push({lat: pos.k,lng: pos.B});
+      console.log(pos);
+      $scope.map.setCenter(pos);
+      var lat  = position.coords.latitude
+      var long = position.coords.longitude
+      $scope.myPos.lat = lat;
+      $scope.myPos.lng = long;
+      $scope.watchPos.push({lat: lat, lng: long});
+      $ionicLoading.hide();
+    });
+
+  };
+    // Wait for Cordova to load
+    //
+    // document.addEventListener("deviceready", onDeviceReady, false);
+
+    var watchID = null;
+
+    // Cordova is ready
+    //
+/*    function onDeviceReady() {
+        // Throw an error if no update is received every 30 seconds
+        
+    }*/
+        var options = { timeout: 30000 };
+        watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+    // onSuccess Geolocation
+    //
+    function onSuccess(position) {
+      $scope.watchPos.push({lat: position.coords.latitude, lng: position.coords.longitude});
+      $scope.pathRecords.positions.push([position.coords.latitude,  position.coords.longitude]);
+    }
+
+    // onError Callback receives a PositionError object
+    //
+    function onError(error) {
+        alert('code: '    + error.code    + '\n' +
+              'message: ' + error.message + '\n');
+    }
+
+/*  var watchID = navigator.geolocation.watchPosition(function(position){
+      $scope.watchPos.push({lat: position.coords.latitude, lng: position.coords.longitude});
+      $scope.pathRecords.positions.push([position.coords.latitude,  position.coords.longitude]);
+  });*/
+
+  var posOptions = {timeout: 10000, enableHighAccuracy: false};
+  $scope.pathRecords = pathRecords;
+  $scope.myPos = {};
+  $scope.watchPos = [];
+  $cordovaGeolocation
+    .getCurrentPosition(posOptions)
+    .then(function (position) {
+      var lat  = position.coords.latitude
+      var long = position.coords.longitude
+      $scope.myPos.lat = lat;
+      $scope.myPos.lng = long;
+      $scope.watchPos.push({lat: lat, lng: long});
+
+    }, function(err) {
+      // error
+    });
+
+/*  var watchOptions = {
+    frequency : 1000,
+    timeout : 3000,
+    enableHighAccuracy: false // may cause errors if true
+  };
+
+  var watch = $cordovaGeolocation.watchPosition(watchOptions);
+  watch.then(
+    function(position) {
+      var lat  = position.coords.latitude
+      var long = position.coords.longitude
+      $scope.myPos.lat = lat;
+      $scope.myPos.lng = long;
+      $scope.watchPos.push({lat: lat, lng: long});
+      $scope.pathRecords.positions.push([lat, long]);
+  },
+    function(err) {
+      // error
+    },
+    function(position) {
+      // nothing
+  });*/
+
 });

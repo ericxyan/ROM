@@ -1,17 +1,28 @@
 <ion-view view-title="Maps">
 	<ion-content class="padding">
 		<!-- <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map> -->
-<map center="43.6677097,-79.3947771" zoom="18">
+<!-- <map center="43.6677097,-79.3947771" zoom="18">
   <marker ng-repeat="pos in positions" id="{{pos.posid}}" position="{{pos.lat}}, {{pos.lng}}"></marker>
 
-    <shape name="polyline" id="foo" path="[
-    [43.667485, -79.394915],
-    [43.667509, -79.394825],
-    [43.667641, -79.394880],
-    [43.667779, -79.394262]
-      ]" geodesic="true" stroke-color="#FF0000" stroke-opacity="1.0" stroke-weight="2">
+    <shape name="polyline" id="foo" path="{{pathRecords.positions}}" geodesic="true" stroke-color="#FF0000" stroke-opacity="1.0" stroke-weight="2">
     </shape>
+</map> -->
+
+<map center="{{myPos.lat}}, {{myPos.lng}}" zoom="16">
+<marker position="{{myPos.lat}}, {{myPos.lng}}" icon="{
+  path: 'CIRCLE',
+  fillColor: '#0066FF',
+  fillOpacity: 0.8,
+  scale: 7,
+  strokeColor: 'white',
+  strokeWeight: 2
+}" dragglele="true"></marker>
+    <shape name="polyline" id="path" path="{{pathRecords.positions}}" geodesic="true" stroke-color="#FF0000" stroke-opacity="1.0" stroke-weight="2">
 </map>
+  <!-- <div> <p> Records: {{watchPos}}  </p> </div> -->
+  <div>
+    <p>pathRecords: {{pathRecords.positions}}</p>
+  </div>
 <!-- <div>
 	<img src="img/mapcatch.png" alt="map">
 </div> -->
@@ -47,6 +58,7 @@
 
 	</ion-content>
 	<ion-footer-bar class="bar-positive">
-		<a ng-click="centerOnMe()" class="button button-icon icon ion-navigate">Find Me</a>
+		<!-- <a ng-click="centerOnMe()" class="button button-icon icon ion-navigate">Find Me</a> -->
+    <button class="button button-icon ion-pinpoint" ng-click="centerOnMe()">Finde me</button>
 	</ion-footer-bar>
 </ion-view>

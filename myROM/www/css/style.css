@@ -28,4 +28,9 @@
     height: 100%;
 }
 
-.angular-google-map-container { height: 400px; }
+#map{
+    width:80%;
+    height:400px;
+    margin:10px auto;
+    box-shadow:0 3px 25px black;
+}
