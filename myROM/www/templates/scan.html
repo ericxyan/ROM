@@ -1,9 +1,6 @@
-<ion-view view-title="{{maplist[mapId].title}}">
-  <ion-content>
-	<div class="list card">
-			<div class="item item-image">
-		<img class="full-image" src="{{maplist[mapId].url}}" alt="{{maplist[mapId].title}}">
-	</div>
-	</div>
+<ion-view view-title="Scan">
+  <ion-content>	
+  	<button class="btn btn-primary" ng-click="scanBarcode()">Scan</button>
+  	<p class="text-success" ng-model="QRData"></p>
   </ion-content>
 </ion-view>

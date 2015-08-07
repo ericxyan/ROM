@@ -65,4 +65,88 @@ angular.module('starter.services', [])
      }
    };
    
-});
+})
+
+// Camera
+.factory('Camera', ['$q', function($q) {
+  return {
+    getPicture: function(options) {
+      var q = $q.defer();
+
+      navigator.camera.getPicture(function(imageUrl) {
+        q.resolve(imageUrl);
+      }, function(err) {
+        q.reject(err);
+      }, options);
+
+      return q.promise;
+    }
+  }
+}])
+
+.factory('BarcodeScanner', ['$q', function($q) {
+  return {
+    scan: function() {
+      var q = $q.defer();
+
+      $cordovaBarcodeScanner.scan().then(function(barcodeData) {
+        // Success!
+        q.resolve(barcodeData);
+      }, function(err) {
+        q.reject(err);
+      });
+
+      return q.promise;
+    },
+    encode: function(encodeType, encodeText) {
+      var q = $q.defer();
+
+      $cordovaBarcodeScanner.encode(BarcodeScanner.Encode.TEXT_TYPE, "http://www.nytimes.com").then(
+        function(success){
+          // Success!
+          q.resolve(success);
+        }, function(err){
+          q.reject(err);
+        });
+
+      return q.promise;
+    }
+  }
+}])
+
+.factory('SocialSharing', ['$q', function($q) {
+  return {
+    share: function (message, subject, file, link) {
+      var q = $q.defer();
+      $cordovaSocialSharing.share(message, subject, file, link).then(function(success){
+        // Success!
+        q.resolve(success);
+      }, function(err) {
+        // Error!
+        q.reject(err);
+      });
+
+      return q.promise;
+    },
+    shareViaTwitter: function(message, image, link) {
+      $cordovaSocialSharing.shareViaTwitter(message, image, link).then(function(success) {
+        // Success!
+        q.resolve(success);
+      }, funciton(err) {
+        // Error!
+        q.reject(err);
+      });
+      return q.promise;
+    },
+    shareViaFacebook: function(message, image, link) {
+      $cordovaSocialSharing.shareViaFacebook(message, image, link).then(function(success) {
+        // Success!
+        q.resolve(success);
+      }, function(err){
+        // Error!
+        q.reject(err);
+      });
+      return q.promise;
+    }
+  }
+}])

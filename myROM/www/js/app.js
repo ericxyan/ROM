@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js 
 // 'uiGmapgoogle-maps'
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.config'])
 
 .run(function($ionicPlatform, GeoAlert) {
   $ionicPlatform.ready(function() {
@@ -142,11 +142,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     views: {
       'menuContent': {
         templateUrl: 'templates/scan.html',
+        controller: 'QRScannerCtrl'
       }
     }
   })
 
-
+  .state('app.camera', {
+    url: '/camera',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/camera.html',
+        controller: 'cameraCtrl'
+      }
+    }
+  })
 
   .state('app.feedback', {
     url: '/feedback',
