@@ -248,4 +248,30 @@ angular.module('starter.controllers', ['ngMap', 'ngCordova'])
       // nothing
   });*/
 
+})
+.controller('cameraCtrl', function($scope, Camera){
+  $scope.imgUrl = '';
+  $scope.takePhoto = function(){
+    Camera.getPicture().then(function(url) {
+      $scope.imgUrl = url;
+      console.log(url);
+    }, function(err){
+      console.err(err);
+    });
+  };
+})
+
+//QR Scanner
+.controller('QRScannerCtrl', function($scope, $cordovaBarcodeScanner) {
+ 
+    $scope.scanBarcode = function() {
+        $cordovaBarcodeScanner.scan().then(function(imageData) {
+            alert(imageData.text);
+            console.log("Barcode Format -> " + imageData.format);
+            console.log("Cancelled -> " + imageData.cancelled);
+        }, function(error) {
+            console.log("An error happened -> " + error);
+        });
+    };
+ 
 });
