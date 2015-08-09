@@ -186,12 +186,17 @@ angular.module('starter.controllers', ['ngMap', 'ngCordova'])
 
 })
 
-.controller('cameraCtrl', function($scope, Camera, $cordovaSocialSharing){
-  $scope.imgUrl = '';
+.controller('cameraCtrl', function($scope, Camera,$cordovaSocialSharing, $window){
+  $scope.album = JSON.parse($window.localStorage['album'] || '[]');
+  $scope.album.push('img/album1.png');
+  $scope.imgUrl = $scope.album[0] || '';
   $scope.takePhoto = function(){
     Camera.getPicture().then(function(url) {
-      $scope.imgUrl = url;
-      console.log(url);
+      //$scope.imgUrl = url;
+      $scope.album.push(url);
+      $window.localStorage['album'] = JSON.stringify($scope.album);
+      console.log($scope.album);
+      $scope.imgUrl = $scope.album[0];
     }, function(err){
       console.err(err);
     });
@@ -207,9 +212,6 @@ angular.module('starter.controllers', ['ngMap', 'ngCordova'])
         // An error occured. Show a message to the user
       });
   }
-
-  $//   
-
 })
 
 //QR Scanner

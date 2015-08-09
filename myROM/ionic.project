@@ -1,4 +1,12 @@
 {
   "name": "myROM",
-  "app_id": "a6d1a248"
+  "app_id": "a6d1a248",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
 }

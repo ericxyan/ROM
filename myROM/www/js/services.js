@@ -127,26 +127,37 @@ angular.module('starter.services', [])
       });
 
       return q.promise;
-    },
-    shareViaTwitter: function(message, image, link) {
-      $cordovaSocialSharing.shareViaTwitter(message, image, link).then(function(success) {
-        // Success!
-        q.resolve(success);
-      }, funciton(err) {
-        // Error!
-        q.reject(err);
-      });
-      return q.promise;
-    },
-    shareViaFacebook: function(message, image, link) {
-      $cordovaSocialSharing.shareViaFacebook(message, image, link).then(function(success) {
-        // Success!
-        q.resolve(success);
-      }, function(err){
-        // Error!
-        q.reject(err);
-      });
-      return q.promise;
     }
   }
 }])
+
+// Local storage
+.factory('localStorage', ['$window', function ($window) {
+  return {
+    set: function (key, value) {
+      $window.localStorage[key] = value;
+    },
+    get: function (key, defaultValue) {
+      return $window.localStorage[key] || defaultValue;
+    },
+    setObject: function (key, value) {
+      $window.localStorage[key] = JSON.stringify(value);
+    },
+    getObject: function (key) {
+      return JSON.parse($window.localStorage[key] || '{}');
+    }
+  }
+}])
+// local storage array
+.factory('album', ['$window', function ($window) {
+  return {
+    set: function (imgUrl) {
+      var album = JSON.parse($window.localStorage['album'] || '[]');
+      album.push[imgUrl];
+      $window.localStorage['album'] = JSON.stringify(album);
+    },
+    get: function () {
+      return JSON.parse($window.localStorage['album'] || '[]');
+    }
+  }
+}]);

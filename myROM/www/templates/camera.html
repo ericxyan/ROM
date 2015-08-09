@@ -1,13 +1,39 @@
-<ion-view view-title="Camera">
-<ion-content>
-	<button class="button button-assertive" ng-click="takePhoto()">
-	Take Photo
-	</button>
-	<img ng-src="{{imgUrl}}" alt="" style="width: 300px; height: 300px;"/>
-
-	<button onclick="window.plugins.socialsharing.share('Message only')">message only</button>
-	<button class="btn btn-primary" ng-click="shareToFacebook()">Facebook</button>
-</ion-content>
+<ion-view view-title="Camera" >
+	<ion-content style="background-color:  #e9eaed;">
 
 
+		
+		<div ng-repeat="img in album">
+			<div class="list card">
+				<div class="item item-body">
+					<img ng-src="{{img}}" alt="" style="width: 300px; height: 300px;">
+				</div>
+				<div class="item tabs tabs-secondary tabs-icon-left">
+					<a class="tab-item" href ng-click="shareViaFacebook()">
+					  <i class="icon ion-social-facebook"></i>
+					  Facebook
+					</a>
+					<a class="tab-item" href="#">
+					  <i class="icon ion-social-twitter"></i>
+					  Twitter
+					</a>
+					<a class="tab-item" href="#">
+					  <i class="icon ion-share"></i>
+					  Share
+					</a>
+				</div>
+			</div>
+		</div>
+
+
+
+
+	</ion-content>
+
+
+<ion-footer-bar align-title="left" class="bar-assertive">
+
+  <h1 class="title" ><a ng-click="takePhoto()" href><i class="icon ion-camera" style="font-size: 48px !important;"></i></a></h1>
+
+</ion-footer-bar>
 </ion-view>
