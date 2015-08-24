@@ -67,16 +67,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     url: '/news',
     views: {
       'menuContent': {
-        templateUrl: 'templates/news.html'
+        templateUrl: 'templates/news.html',
+        controller: 'newsCtrl'
       }
     }
   })
 
   .state('app.news-detail', {
-    url: '/news/1',
+    url: '/news/:newsId',
     views: {
       'menuContent': {
         templateUrl: 'templates/news-detail.html',
+        controller: 'newsCtrl'
       }
     }
   })
@@ -104,20 +106,31 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     url: '/galleries',
     views: {
       'menuContent': {
-        templateUrl: 'templates/galleries.html'
+        templateUrl: 'templates/galleries.html',
+        controller: 'galleryCtrl'
       }
     }
   })
 
   .state('app.galleries-detail',{
-    url: '/galleries/1',
+    url: '/galleries/:level/:num',
     views: {
       'menuContent': {
         templateUrl: 'templates/galleries-detail.html',
-        controller: 'galleryDetailController'
+        controller: 'galleryCtrl'
       }
     }
   })
+
+  .state('app.locateGallery', {
+      url: '/navigation/:level/:lat/:lng',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/navigation.html',
+          controller:'navigation'
+        }
+      }
+    })
 
   .state('app.navigation', {
       url: '/navigation',

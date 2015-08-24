@@ -2,12 +2,13 @@
 <ion-content>
 <div class="list card">
 	<div class="item item-button-right item-text-wrap">
-		<h2><strong>Sigmund Samuel Gallery of Canada</strong></h2>
+		<h2><strong>{{showGallery.name}}</strong></h2>
 		<button class="ng-class:{'button button-clear button-assertive': getLike(), 'button button-clear': !getLike()}" ng-init="getLike()" ng-click="addMarker()"><i class="ion-star"></i></button>
+
 	</div>
 	
 	<div class="item item-image">
-		<img class="full-image" src="img/general-wolf-big-one.jpg" alt="general-wolf-big-one.jpg">
+		<img class="full-image" ng-src="{{showGallery.img}}" alt="general-wolf-big-one.jpg">
 	</div>
 	<div class="item tabs tabs-secondary tabs-icon-left">
 		<a class="tab-item" href="#" ng-click="like = like + 1">
@@ -18,13 +19,13 @@
 			<i class="icon ion-chatbox"></i>
 			Comment
 		</a>
-		<a class="tab-item" href="#">
+		<a class="tab-item" href ng-click="share(showGallery.name ,showGallery.url)">
 			<i class="icon ion-share"></i>
 			Share
 		</a>
-		<a class="tab-item" href="#">
+		<a class="tab-item" href="#/app/navigation/{{showGallery.location.level}}/{{showGallery.location.lat}}/{{showGallery.location.lng}}">
 			<i class="icon ion-navigate"></i>
-			Navigate
+			Location
 		</a>
 	</div>
 	<div class="item">
@@ -34,19 +35,7 @@
 		</p>
 	</div>
 	<div class="item item-body">
-		
-		<p>
-			Canada's heritage is one of diverse cultures and deep roots. Originally influenced by English, French and Aboriginal cultures, and more recently by a mosaic of international ethnicity, the essence of Canadian-ness and its changing emblems and symbols of identity play a key role in placing context around the collections in this growing gallery.
-			Behold the world of early Canada told through the lens of the rich decorative and pictorial arts produced by the early settlers from France and Great Britain. Continue the story of Canada's cultural heritage with a growing contemporary collection reflecting the cultures of successive generations of immigrants. Furniture, historical artifacts, landscape paintings, portraits, religious artifacts and modern design help us understand where Canadians have come from, how they lived, the evolving nature of Canadian identity and Canadian-ness, and its ongoing contribution to the nation's cultural fabric.
-		</p>
-		<h3>About the Gallery</h3>
-		<h4>What?</h4>
-		<p>Approximately 560 artifacts present Canadian heritage, from the early years of European settlement to the present day, with emphasis on the early French and British cultural legacy.</p>
-		<h4>Where?</h4>
-		<p>
-		Canada, west to the Pacific Ocean, north to the Arctic, east to the Atlantic, and south to the border with the United States.</p>
-		<h4>When?</h4>
-		<p>From 17th century AD to the present.</p>
+		{{showGallery.content}}
 	</div>
 </div>
 </ion-content>

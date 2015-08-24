@@ -2,24 +2,104 @@ angular.module('starter.services', [])
 
 .factory('pathRecords', function(){
   return {
-    positions: []
+    positions: [
+      [43.668240, -79.394965],
+      [43.667810, -79.394749],
+      [43.667721, -79.395105],
+      [43.667871, -79.395214],
+      [43.667836, -79.395333],
+      [43.667445, -79.395135],
+      [43.667238, -79.395042],
+      [43.667266, -79.394907],
+      [43.667463, -79.395012],
+      [43.667504, -79.394835],
+      [43.667580, -79.394866],
+      [43.667682, -79.394411]
+    ]
   }
 })
 .factory('markerList', function(){
   var factory = {};
   var markers = [];
-  var like = false;
-  factory.getLike = function(){
-    return like;
+  var galleriesbox = [
+      // level 1
+      [
+        {
+          'name': 'Sigmund Samuel Gallery of Canada',
+          'img': 'img/general-wolf-big-one.jpg',
+          'like': 0,
+          'fave': false,
+          'location': {
+            'level': 1,
+            'lat': 43.667591, 
+            'lng': -79.394195
+          },
+          'content': 'Canada\'s heritage is one of diverse cultures and deep roots. Originally influenced by English, French and Aboriginal cultures, and more recently by a mosaic of international ethnicity, the essence of Canadian-ness and its changing emblems and symbols of identity play a key role in placing context around the collections in this growing gallery. Behold the world of early Canada told through the lens of the rich decorative and pictorial arts produced by the early settlers from France and Great Britain. Continue the story of Canada\'s cultural heritage with a growing contemporary collection reflecting the cultures of successive generations of immigrants. Furniture, historical artifacts, landscape paintings, portraits, religious artifacts and modern design help us understand where Canadians have come from, how they lived, the evolving nature of Canadian identity and Canadian-ness, and its ongoing contribution to the nation\'s cultural fabric.'
+        },
+        {
+          'name': 'Daphne Cockwell Gallery of Canada: First Peoples',
+          'img': "img/rom2008_10320_2-two.jpg",
+          'like': 0,
+          'fave': false,
+          'location': {
+            'level': 1,
+            'lat': 43.667591, 
+            'lng': -79.394195
+          },
+          'content': 'Canada\'s heritage is one of diverse cultures and deep roots. Originally influenced by English, French and Aboriginal cultures, and more recently by a mosaic of international ethnicity, the essence of Canadian-ness and its changing emblems and symbols of identity play a key role in placing context around the collections in this growing gallery. Behold the world of early Canada told through the lens of the rich decorative and pictorial arts produced by the early settlers from France and Great Britain. Continue the story of Canada\'s cultural heritage with a growing contemporary collection reflecting the cultures of successive generations of immigrants. Furniture, historical artifacts, landscape paintings, portraits, religious artifacts and modern design help us understand where Canadians have come from, how they lived, the evolving nature of Canadian identity and Canadian-ness, and its ongoing contribution to the nation\'s cultural fabric.'
+        }
+      ], 
+      // level 2
+      [
+        {
+          'name': 'The Bat Cave',
+          'img': "img/rom2012_12913_10-two.jpg",
+          'like': 0,
+          'fave': false,
+          'location': {
+            'level': 1,
+            'lat': 43.667591, 
+            'lng': -79.394195
+          },
+          'content': 'Canada\'s heritage is one of diverse cultures and deep roots. Originally influenced by English, French and Aboriginal cultures, and more recently by a mosaic of international ethnicity, the essence of Canadian-ness and its changing emblems and symbols of identity play a key role in placing context around the collections in this growing gallery. Behold the world of early Canada told through the lens of the rich decorative and pictorial arts produced by the early settlers from France and Great Britain. Continue the story of Canada\'s cultural heritage with a growing contemporary collection reflecting the cultures of successive generations of immigrants. Furniture, historical artifacts, landscape paintings, portraits, religious artifacts and modern design help us understand where Canadians have come from, how they lived, the evolving nature of Canadian identity and Canadian-ness, and its ongoing contribution to the nation\'s cultural fabric.'
+        }
+      ],
+      // level 3
+      [
+        {
+          'name': 'Eaton Gallery of Rome',
+          'img': 'img/romsep2pm205_6_7_8_9.jpg',
+          'url': 'https://www.rom.on.ca/en/exhibitions-galleries/galleries/world-cultures/eaton-gallery-rome',
+          'like': 10,
+          'fave': false,
+          'location': {
+            'level': 3,
+            'lat': 43.667607,
+            'lng': -79.395010
+          },
+          'content': 'The legacy of Rome and its empire endures to this day. Roman generals and emperors conquered foreign lands and left their mark, still visible today in art and architectural remains throughout Europe and the Middle East. Rome was home to some of the world\'s greatest engineering accomplishments, such as the Colosseum where gladiators fought, often to the death. Aspects of Roman law form the basis of today’s law codes. In this gallery ancient Rome is brought to life through the largest collection of Roman artifacts in Canada. The thematic display takes you on a journey spanning over 1000 years of history through Republican and Imperial Rome and encompassing a vast geographic area from Britain to Egypt. The gallery also includes the Bratty Exhibit of Etruria, which throws light on the culture of the Etruscans, Rome’s enigmatic Italian neighbours.'
+        }
+      ],
+      // leve 4
+      []
+  ];
+  factory.getGalleriesbox = function(){
+    return galleriesbox;
   }
-  factory.changeLike = function(){
-    like = !like;
+  factory.getGallery = function(level, num){
+    return galleriesbox[level][num];
+  }
+  factory.getFave = function(level, num){
+    return galleriesbox[level][num].fave;
+  }
+  factory.changeFave = function(level, num){
+    galleriesbox[level][num].fave = !galleriesbox[level][num].fave;
   }
   factory.getMarkers = function(){
     return markers;
   }
-  factory.addMarkers = function(){
-    markers = [{lat:43.667665, lng: -79.394242}];
+  factory.addMarkers = function(lat1, lng1){
+    markers.push({'lat':lat1,'lng':lng1});
   }
   factory.deleteMarkers = function(){
     markers = [];
@@ -128,23 +208,6 @@ angular.module('starter.services', [])
         }, function(err){
           q.reject(err);
         });
-
-      return q.promise;
-    }
-  }
-}])
-
-.factory('SocialSharing', ['$q', function($q) {
-  return {
-    share: function (message, subject, file, link) {
-      var q = $q.defer();
-      $cordovaSocialSharing.share(message, subject, file, link).then(function(success){
-        // Success!
-        q.resolve(success);
-      }, function(err) {
-        // Error!
-        q.reject(err);
-      });
 
       return q.promise;
     }
