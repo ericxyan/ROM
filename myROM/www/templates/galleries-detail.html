@@ -3,7 +3,8 @@
 <div class="list card">
 	<div class="item item-button-right item-text-wrap">
 		<h2><strong>{{showGallery.name}}</strong></h2>
-		<button class="ng-class:{'button button-clear button-assertive': favor, 'button button-clear': !favor}" ng-init="favor=false" ng-click="favor=!favor"><i class="ion-star"></i></button>
+		<button class="ng-class:{'button button-clear button-assertive': getLike(), 'button button-clear': !getLike()}" ng-init="getLike()" ng-click="addMarker()"><i class="ion-star"></i></button>
+
 	</div>
 	
 	<div class="item item-image">

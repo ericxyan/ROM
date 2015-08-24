@@ -93,7 +93,7 @@ angular.module('starter.controllers', ['ngMap', 'ngCordova'])
 //////////////////
 // Gallery Ctrl //
 //////////////////
-.controller('galleryCtrl', function ($scope, $stateParams, $cordovaSocialSharing) {
+.controller('galleryCtrl', function ($scope, $stateParams, $cordovaSocialSharing, markerList) {
   $scope.galleriesbox = [
       // level 1
       [
@@ -165,7 +165,22 @@ angular.module('starter.controllers', ['ngMap', 'ngCordova'])
       }, function(err) {
         // An error occured. Show a message to the user
       });
-  }
+  };
+
+  $scope.addMarker = function(){
+    markerList.changeLike();
+    if(markerList.getLike()){
+      markerList.addMarkers();
+    }
+    else{
+      markerList.deleteMarkers();
+    }
+    return markerList.getLike();
+  };
+
+  $scope.getLike = function(){
+    return markerList.getLike();
+  };
 })
 
 //////////////////
@@ -190,7 +205,8 @@ angular.module('starter.controllers', ['ngMap', 'ngCordova'])
 /////////////////////
 // Navigation Ctrl //
 /////////////////////
-.controller('navigation', function($scope, $ionicLoading, $cordovaGeolocation, $ionicPopup, $ionicModal, $stateParams ,pathRecords){
+.controller('navigation', function($scope, $ionicLoading, $cordovaGeolocation, $ionicPopup, $ionicModal, $stateParams ,pathRecords, markerList){
+
   $scope.toggle = {
     track: false
   };
@@ -212,9 +228,11 @@ angular.module('starter.controllers', ['ngMap', 'ngCordova'])
   }).then(function(modal) {
     $scope.modal = modal;
   });
+
   $scope.openModal = function() {
     $scope.modal.show();
   };
+
   $scope.closeModal = function() {
     $scope.modal.hide();
   };
@@ -223,16 +241,25 @@ angular.module('starter.controllers', ['ngMap', 'ngCordova'])
   $scope.addMarker = function(event) {
     var ll = event.latLng;
     $scope.positions.push({lat:ll.lat(), lng: ll.lng()});
-  }
+  };
+
+  $scope.init = function() {
+    $scope.positions = markerList.getMarkers();
+  };
+  $scope.addMarkers = function() {
+    $scope.positions= [{lat:43.667665, lng: -79.394242}];
+  };
   $scope.deleteMarkers = function() {
     $scope.positions = [];
   };
   $scope.showMarkers = function() {
+    $scope.positions = markerList.getMarkers();
     for (var key in $scope.map.markers) {
       $scope.map.markers[key].setMap($scope.map);
     };
   };
   $scope.hideMarkers = function() {
+    $scope.positions = markerList.getMarkers();
     for (var key in $scope.map.markers) {
       $scope.map.markers[key].setMap(null);
     };
@@ -269,81 +296,81 @@ angular.module('starter.controllers', ['ngMap', 'ngCordova'])
     //
     // document.addEventListener("deviceready", onDeviceReady, false);
 
-    var watchID = null;
+  var watchID = null;
 
-    // Cordova is ready
-    //
+  // Cordova is ready
+  //
 /*    function onDeviceReady() {
-        // Throw an error if no update is received every 30 seconds
-        
-    }*/
-    var options = { timeout: 30000 };
-    var alertPopup;
-    $scope.trackPath = function () {
-      if($scope.toggle.track) {
-        watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
-        alertPopup = $ionicPopup.alert ({
-          title: "Track",
-          template: "Start Tracking"
-        });
-        alertPopup.then(function(res) {
-          console.log("Start tracking!");
-          $scope.centerOnMe();
-        });
-      }
-      else {
-        navigator.geolocation.clearWatch(watchID);
-        alertPopup = $ionicPopup.alert ({
-          title: "Track",
-          template: "Stop Tracking"
-        });
-        alertPopup.then(function(res) {
-          console.log("Start tracking!");
-        });
-      }
+      // Throw an error if no update is received every 30 seconds
+      
+  }*/
+  var options = { timeout: 30000 };
+  var alertPopup;
+  $scope.trackPath = function () {
+    if($scope.toggle.track) {
+      watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+      alertPopup = $ionicPopup.alert ({
+        title: "Track",
+        template: "Start Tracking"
+      });
+      alertPopup.then(function(res) {
+        console.log("Start tracking!");
+        $scope.centerOnMe();
+      });
     }
-
-    //watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
-    // onSuccess Geolocation
-    var gallery = {
-      lat: 43.667733, 
-      lng: -79.394642
-    };
-
-    function onSuccess(position) {
-      //$scope.watchPos.push({lat: position.coords.latitude, lng: position.coords.longitude});
-      $scope.pathRecords.positions.push([position.coords.latitude,  position.coords.longitude]);
-      var x = myPos.lat;
-      var y = myPos.lng;
-      var dx = (x - gallery.lat) * 100000;
-      var dy = (y - gallery.lng) * 100000;
-      var dist = Math.sqrt(dx * dx + dy * dy);
-      // near a gallery
-      if (dist < 2500){
-        alert("here!");
-      }
+    else {
+      navigator.geolocation.clearWatch(watchID);
+      alertPopup = $ionicPopup.alert ({
+        title: "Track",
+        template: "Stop Tracking"
+      });
+      alertPopup.then(function(res) {
+        console.log("Start tracking!");
+      });
     }
+  };
 
-    // onError Callback receives a PositionError object
-    function onError(error) {
-        alert('code: '    + error.code    + '\n' +
-              'message: ' + error.message + '\n');
-    }
+  //watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+  // onSuccess Geolocation
+  var gallery = {
+    lat: 43.667733, 
+    lng: -79.394642
+  };
 
-    $scope.moveTo = function () {
-      $scope.myPos.lat = 43.667730;
-      $scope.myPos.lng = -79.394640;
-      var x = myPos.lat;
-      var y = myPos.lng;
-      var dx = (x - gallery.lat) * 100000;
-      var dy = (y - gallery.lng) * 100000;
-      var dist = Math.sqrt(dx * dx + dy * dy);
-      // near a gallery
-      if (dist < 2500){
-        alert("here!");
-      }
+  function onSuccess(position) {
+    //$scope.watchPos.push({lat: position.coords.latitude, lng: position.coords.longitude});
+    $scope.pathRecords.positions.push([position.coords.latitude,  position.coords.longitude]);
+    var x = myPos.lat;
+    var y = myPos.lng;
+    var dx = (x - gallery.lat) * 100000;
+    var dy = (y - gallery.lng) * 100000;
+    var dist = Math.sqrt(dx * dx + dy * dy);
+    // near a gallery
+    if (dist < 2500){
       alert("here!");
     }
+  };
+
+  // onError Callback receives a PositionError object
+  function onError(error) {
+      alert('code: '    + error.code    + '\n' +
+            'message: ' + error.message + '\n');
+  };
+
+  $scope.moveTo = function () {
+    $scope.myPos.lat = 43.667730;
+    $scope.myPos.lng = -79.394640;
+    var x = myPos.lat;
+    var y = myPos.lng;
+    var dx = (x - gallery.lat) * 100000;
+    var dy = (y - gallery.lng) * 100000;
+    var dist = Math.sqrt(dx * dx + dy * dy);
+    // near a gallery
+    if (dist < 2500){
+      alert("here!");
+    }
+    alert("here!");
+  };
 
   var posOptions = {maximumAge: 3000, timeout: 5000, enableHighAccuracy: false};
   $scope.pathRecords = pathRecords;

@@ -117,7 +117,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     views: {
       'menuContent': {
         templateUrl: 'templates/galleries-detail.html',
+<<<<<<< HEAD
         controller: 'galleryCtrl'
+=======
+        controller: 'galleryDetailController'
+>>>>>>> 3b273e3834c55b251d925879f51e5e90772388c7
       }
     }
   })
