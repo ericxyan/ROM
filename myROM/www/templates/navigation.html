@@ -1,64 +1,66 @@
 <ion-view view-title="Maps">
-	<ion-content class="padding">
-		<!-- <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map> -->
+<ion-content class="padding">
+<!-- <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map> -->
 <!-- <map center="43.6677097,-79.3947771" zoom="18">
-  <marker ng-repeat="pos in positions" id="{{pos.posid}}" position="{{pos.lat}}, {{pos.lng}}"></marker>
-
-    <shape name="polyline" id="foo" path="{{pathRecords.positions}}" geodesic="true" stroke-color="#FF0000" stroke-opacity="1.0" stroke-weight="2">
-    </shape>
+<marker ng-repeat="pos in positions" id="{{pos.posid}}" position="{{pos.lat}}, {{pos.lng}}"></marker>
+<shape name="polyline" id="foo" path="{{pathRecords.positions}}" geodesic="true" stroke-color="#FF0000" stroke-opacity="1.0" stroke-weight="2">
+</shape>
 </map> -->
-
-<map center="{{myPos.lat}}, {{myPos.lng}}" zoom="16">
-<marker position="{{myPos.lat}}, {{myPos.lng}}" icon="{
-  path: 'CIRCLE',
-  fillColor: '#0066FF',
-  fillOpacity: 0.8,
-  scale: 7,
-  strokeColor: 'white',
-  strokeWeight: 2
-}" dragglele="true"></marker>
-    <shape name="polyline" id="path" path="{{pathRecords.positions}}" geodesic="true" stroke-color="#FF0000" stroke-opacity="1.0" stroke-weight="2">
+<map center="{{myPos.lat}}, {{myPos.lng}}" zoom="18">
+  <!-- Current position -->
+  <marker position="{{myPos.lat}}, {{myPos.lng}}" icon="{
+    path: 'CIRCLE',
+    fillColor: '#0066FF',
+    fillOpacity: 0.8,
+    scale: 7,
+    strokeColor: 'white',
+    strokeWeight: 2
+    }" dragglele="true">
+  </marker>
+  <marker position="{{myGallery.lat}}, {{myGallery.lng}}"></marker>
+  <!-- Path -->
+  <shape name="polyline" id="path" path="{{pathRecords.positions}}" geodesic="true" stroke-color="#FF0000" stroke-opacity="0.8" stroke-weight="2">
 </map>
-  <!-- <div> <p> Records: {{watchPos}}  </p> </div> -->
-  <div>
-    <p>pathRecords: {{pathRecords.positions}}</p>
-  </div>
+<!-- <div> <p> Records: {{watchPos}}  </p> </div> -->
+<div>
+  <!-- <p>pathRecords: {{pathRecords.positions}}</p> -->
+</div>
 <!-- <div>
-	<img src="img/mapcatch.png" alt="map">
+    <img src="img/mapcatch.png" alt="map">
 </div> -->
 <ul class="list">
   <li class="item item-toggle">
-     Track my path
-     <label class="toggle toggle-positive">
-       <input type="checkbox">
-       <div class="track">
-         <div class="handle"></div>
-       </div>
-     </label>
+    Track my path
+    <label class="toggle toggle-positive">
+      <input type="checkbox" ng-model="toggle.track" ng-change="trackPath()">
+      <div class="track">
+        <div class="handle"></div>
+      </div>
+    </label>
   </li>
   <li class="item item-toggle">
-     Show my favorites
-     <label class="toggle toggle-positive">
-       <input type="checkbox" >
-       <div class="track">
-         <div class="handle"></div>
-       </div>
-     </label>
+    Show my favorites
+    <label class="toggle toggle-positive">
+      <input type="checkbox" >
+      <div class="track">
+        <div class="handle"></div>
+      </div>
+    </label>
   </li>
   <li class="item item-toggle">
-     Virtual guide
-     <label class="toggle toggle-positive">
-       <input type="checkbox">
-       <div class="track">
-         <div class="handle"></div>
-       </div>
-     </label>
+    Virtual guide
+    <label class="toggle toggle-positive">
+      <input type="checkbox">
+      <div class="track">
+        <div class="handle"></div>
+      </div>
+    </label>
   </li>
 </ul>
-
-	</ion-content>
-	<ion-footer-bar class="bar-positive">
-		<!-- <a ng-click="centerOnMe()" class="button button-icon icon ion-navigate">Find Me</a> -->
-    <button class="button button-icon ion-pinpoint" ng-click="centerOnMe()">Finde me</button>
-	</ion-footer-bar>
+<button class="button button-icon ion-ionic" ng-click="moveTo()"></button>
+</ion-content>
+<ion-footer-bar class="bar-positive">
+<!-- <a ng-click="centerOnMe()" class="button button-icon icon ion-navigate">Find Me</a> -->
+<button class="button button-icon ion-pinpoint" ng-click="centerOnMe()">Finde me</button>
+</ion-footer-bar>
 </ion-view>

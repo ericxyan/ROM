@@ -2,7 +2,20 @@ angular.module('starter.services', [])
 
 .factory('pathRecords', function(){
   return {
-    positions: []
+    positions: [
+      [43.668240, -79.394965],
+      [43.667810, -79.394749],
+      [43.667721, -79.395105],
+      [43.667871, -79.395214],
+      [43.667836, -79.395333],
+      [43.667445, -79.395135],
+      [43.667238, -79.395042],
+      [43.667266, -79.394907],
+      [43.667463, -79.395012],
+      [43.667504, -79.394835],
+      [43.667580, -79.394866],
+      [43.667682, -79.394411]
+    ]
   }
 })
 
@@ -108,23 +121,6 @@ angular.module('starter.services', [])
         }, function(err){
           q.reject(err);
         });
-
-      return q.promise;
-    }
-  }
-}])
-
-.factory('SocialSharing', ['$q', function($q) {
-  return {
-    share: function (message, subject, file, link) {
-      var q = $q.defer();
-      $cordovaSocialSharing.share(message, subject, file, link).then(function(success){
-        // Success!
-        q.resolve(success);
-      }, function(err) {
-        // Error!
-        q.reject(err);
-      });
 
       return q.promise;
     }

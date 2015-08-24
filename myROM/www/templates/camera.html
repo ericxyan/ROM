@@ -9,17 +9,21 @@
 					<img ng-src="{{img}}" alt="" style="width: 300px; height: 300px;">
 				</div>
 				<div class="item tabs tabs-secondary tabs-icon-left">
-					<a class="tab-item" href ng-click="shareViaFacebook()">
-					  <i class="icon ion-social-facebook"></i>
-					  Facebook
+					<a class="tab-item" href  ng-click="shareToFacebook(img)">
+						<i class="icon ion-social-facebook"></i>
+						Facebook
 					</a>
 					<a class="tab-item" href="#">
-					  <i class="icon ion-social-twitter"></i>
-					  Twitter
+						<i class="icon ion-social-twitter"></i>
+						Twitter
 					</a>
-					<a class="tab-item" href="#">
-					  <i class="icon ion-share"></i>
-					  Share
+					<a class="tab-item" href ng-click="share(img)">
+						<i class="icon ion-android-share-alt"></i>
+						Share
+					</a>
+					<a href ng-click="deletePhoto($index)" class="tab-item">
+						<i class="icon ion-trash-a"></i>
+						Delete
 					</a>
 				</div>
 			</div>
