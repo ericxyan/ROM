@@ -205,7 +205,7 @@ angular.module('starter.controllers', ['ngMap', 'ngCordova'])
 /////////////////////
 // Navigation Ctrl //
 /////////////////////
-.controller('navigation', function($scope, $ionicLoading, $cordovaGeolocation, $ionicPopup, $ionicModal, $stateParams ,pathRecords, markerList){
+.controller('navigation', function($scope, $ionicLoading, $cordovaGeolocation, $ionicPopup, $ionicModal, $stateParams ,pathRecords, markerList) {
 
   $scope.toggle = {
     track: false
@@ -298,14 +298,9 @@ angular.module('starter.controllers', ['ngMap', 'ngCordova'])
 
   var watchID = null;
 
-  // Cordova is ready
-  //
-/*    function onDeviceReady() {
-      // Throw an error if no update is received every 30 seconds
-      
-  }*/
   var options = { timeout: 30000 };
   var alertPopup;
+
   $scope.trackPath = function () {
     if($scope.toggle.track) {
       watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
