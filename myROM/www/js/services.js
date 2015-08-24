@@ -5,7 +5,27 @@ angular.module('starter.services', [])
     positions: []
   }
 })
-
+.factory('markerList', function(){
+  var factory = {};
+  var markers = [];
+  var like = false;
+  factory.getLike = function(){
+    return like;
+  }
+  factory.changeLike = function(){
+    like = !like;
+  }
+  factory.getMarkers = function(){
+    return markers;
+  }
+  factory.addMarkers = function(){
+    markers = [{lat:43.667665, lng: -79.394242}];
+  }
+  factory.deleteMarkers = function(){
+    markers = [];
+  }
+  return factory;
+})
 .factory('GeoAlert', function() {
    console.log('GeoAlert service instantiated');
    var interval;

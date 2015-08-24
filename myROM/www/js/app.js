@@ -113,7 +113,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     url: '/galleries/1',
     views: {
       'menuContent': {
-        templateUrl: 'templates/galleries-detail.html'
+        templateUrl: 'templates/galleries-detail.html',
+        controller: 'galleryDetailController'
       }
     }
   })

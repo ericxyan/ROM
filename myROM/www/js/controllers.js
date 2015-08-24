@@ -60,25 +60,39 @@ angular.module('starter.controllers', ['ngMap', 'ngCordova'])
 .controller('MapCtrl', function($scope, $stateParams) {
   $scope.mapId = $stateParams.mapId;
 })
-
-.controller('navigation', function($scope, $ionicLoading, $cordovaGeolocation, pathRecords){
-  $scope.positions = [
-    {lat:43.667485,lng:-79.394915,posid: 'chineseArchi'},{lat:43.667779, lng:-79.394262, posid:'rtounda'}
-  ];
-
-  $scope.addMarker = function(event) {
-    var ll = event.latLng;
-    $scope.positions.push({lat:ll.lat(), lng: ll.lng()});
+.controller('galleryDetailController', function($scope, markerList){
+  $scope.addMarker = function(){
+    markerList.changeLike();
+    if(markerList.getLike()){
+      markerList.addMarkers();
+    }
+    else{
+      markerList.deleteMarkers();
+    }
+    return markerList.getLike();
+  };
+  $scope.getLike = function(){
+    return markerList.getLike();
   }
+})
+.controller('navigation', function($scope, $ionicLoading, $cordovaGeolocation, pathRecords, markerList){
+  $scope.init = function() {
+    $scope.positions = markerList.getMarkers();
+  };
+  $scope.addMarkers = function() {
+    $scope.positions= [{lat:43.667665, lng: -79.394242}];
+  };
   $scope.deleteMarkers = function() {
     $scope.positions = [];
   };
   $scope.showMarkers = function() {
+    $scope.positions = markerList.getMarkers();
     for (var key in $scope.map.markers) {
       $scope.map.markers[key].setMap($scope.map);
     };
   };
   $scope.hideMarkers = function() {
+    $scope.positions = markerList.getMarkers();
     for (var key in $scope.map.markers) {
       $scope.map.markers[key].setMap(null);
     };
